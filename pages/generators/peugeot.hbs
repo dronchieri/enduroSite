@@ -1,68 +1,7 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Motormax - {{global.brand.name}}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-    
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-    
-  .carousel-inner img {
-      width: 100%; /* Set width to 100% */
-      margin: auto;
-      min-height:200px;
-  }
+{{>header}}
 
-  /* Hide the carousel text when the screen is less than 600 pixels wide */
-  @media (max-width: 600px) {
-    .carousel-caption {
-      display: none; 
-    }
-  }
-  </style>
-</head>
-<body>
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="/">Logo</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Projects</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-
-<div class="container text-center">    
+<div class="container">    
 
 
     
@@ -74,23 +13,40 @@
 
   <div class="row">
    
-<h3>Seleccioná tu versión</h3>
+
   <div class="col-sm-4">
-    <div class="form-group ">
-            <select class="form-control">
-           
+      <h3>Seleccioná tu versión</h3>
+   
+<div class="form-group " id="versionForm">
+
+        <input type="hidden" value="{{global.brand.id}}" data-name={{global.brand.name}} id="brandData">
+            <select class="selectpicker"  data-width="100%" id="versionsSelector">
+                <option>Versiones</option>
                 {{#each versions}}
-                    <option value="{{this.id}}"> 
-                        {{this.name}} -- PRECIO:  {{this.formatted-price}}
+                    <option value="{{this.id}}" data-name="{{this.name}}" data-model="{{this.model_id}}" data-formattedprice="{{this.formatted-price}}" data-price="{{this.price}}"> 
+                        {{this.name}} | {{this.formatted-price}}</b>
                     </option> 
 
                 
                 {{/each}}
 
             </select>
-            <br>
-            <button type="button" class="btn btn-primary btn-lg btn-block">Siguiente</button>
+            
+        <br><br>
+        <input type="number" class="form-control" id="cashAdvance" placeholder="Adelanto en Efectivo">
+            <br id="usedCarAnchor">
+        <input type="number" class="form-control" id="usedCar" placeholder="Auto Usado">
+       
+        <h3 class="text-center" id="amountToFInance" ></h3>
+        <input type="number" class="form-control" id="fee" placeholder="Cuota Deseada">
+        <br>
+        <div class="alert alert-danger" hidden >
+           Por favor seleccione una versión.
+        </div>
+
+            
     </div>
+    <button type="button" id="submitForm" class="btn btn-primary btn-block">Siguiente</button>
   </div>
 
 
@@ -107,3 +63,103 @@
 </body>
 </html>
 
+<script>
+  localStorage.clear();
+
+
+    var selectedVersion;
+    var amountToFInance;
+    var usedCar = 0;
+    var cashAdvance = 0;
+    var modelVersion;
+    var fee = 10000;
+    var vehicleBlock;
+    var brandId = $('#brandData').val();
+    var brandName = $('#brandData').data("name");
+    var versionName;
+
+$('#versionsSelector').change(function(){
+     $('.alert').fadeOut();
+    var selected = $(this).find(":selected");
+
+    amountToFInance = selected.data("price"); 
+
+    selectedVersion = selected.val();
+    modelVersion    = selected.data("model");
+    versionName     = selected.data("name");
+    
+   
+   
+    goToByScroll('#cashAdvance');
+
+});
+
+$('#cashAdvance').change(function(){
+
+    usedCar = usedCar;
+   
+   var amountToShow = amountToFInance - (parseInt($(this).val()) + usedCar);
+
+    console.log(amountToFInance +':'+$(this).val()+':'+usedCar);
+
+   cashAdvance = parseInt($(this).val());
+
+    $('#amountToFInance').html('<small>Monto a Financiar:</small> '+formatPrice(amountToShow));
+
+     goToByScroll('#usedCarAnchor');
+
+})
+
+$('#usedCar').change(function(){
+   
+    cashAdvance = cashAdvance;
+
+    var amountToShow = amountToFInance - (parseInt($(this).val()) + cashAdvance);
+
+    usedCar = parseInt($(this).val());
+    
+    $('#amountToFInance').html('<small>Monto a Financiar:</small> '+formatPrice(amountToShow));
+});
+
+
+$('#submitForm').click(function(){
+  $('.alert').fadeOut();
+   if(selectedVersion &&  selectedVersion != 'Versiones' ){
+    
+       fee = $('#fee').val() || fee;
+       localStorage.setItem('cashAdvance', cashAdvance);
+       localStorage.setItem('usedCar', usedCar );
+       localStorage.setItem('fee', fee);
+       localStorage.setItem('selectedVersion', selectedVersion);
+    
+        vehicleBlock = {"vehicle": {
+                                    "make": {
+                                    "id": parseInt(brandId),
+                                    "name": brandName
+                                    },
+                                    "model": {
+                                    "id": parseInt(modelVersion),
+                                    "name": "tu vieja"
+                                    },
+                                   "id": selectedVersion,
+                                    "name": versionName ,
+                                    "year": 2018,
+                                    "price": Number /* Required */,
+                                    }
+                                }
+                        };
+
+
+      );
+   }else{
+       $('.alert').fadeIn();
+   }
+   
+
+  
+
+})
+
+
+
+</script>

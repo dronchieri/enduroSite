@@ -12,7 +12,8 @@
       "name": "1.6 16v. Active MT", 
       "nice_name": "1.6 16v. Active MT", 
       "slug": "1-6-16v-active-mt", 
-      "formatted-price":"$365.700"
+      "formatted-price":"$365.700",
+      "price":365700
     }, 
     {
       "id": 1074, 
@@ -20,7 +21,8 @@
       "name": "1.6 16v. Allure MT", 
       "nice_name": "1.6 16v. Allure MT", 
       "slug": "1-6-16v-allure-mt", 
-      "formatted-price":"$365.700"
+      "formatted-price":"$367.700",
+      "price":365700
     }, 
     {
       "id": 1075, 
@@ -28,7 +30,8 @@
       "name": "1.6 16v. Allure Tiptronic", 
       "nice_name": "1.6 16v. Allure Tiptronic", 
       "slug": "1-6-16v-allure-tiptronic", 
-      "formatted-price":"$365.700"
+      "formatted-price":"$369.700",
+      "price":365700
     }, 
     {
       "id": 1076, 
@@ -36,7 +39,8 @@
       "name": "1.6 16v. Feline MT", 
       "nice_name": "1.6 16v. Feline MT", 
       "slug": "1-6-16v-feline-mt", 
-      "formatted-price":"$365.700"
+      "formatted-price":"$365.700",
+      "price":365700
     }, 
     {
       "id": 1078, 
@@ -44,7 +48,8 @@
       "name": "1.6 16v. Feline Tiptronic", 
       "nice_name": "1.6 16v. Feline Tiptronic", 
       "slug": "1-6-16v-feline-tiptronic", 
-      "formatted-price":"$365.700"
+      "formatted-price":"$165.700",
+      "price":365700
     }, 
     {
       "id": 1077, 
@@ -52,7 +57,8 @@
       "name": "1.6 16v. Feline Tiptronic s/techo", 
       "nice_name": "1.6 16v. Feline Tiptronic s/techo", 
       "slug": "1-6-16v-feline-tiptronic-s-techo", 
-      "formatted-price":"$365.700"
+      "formatted-price":"$365.700",
+      "price":365700
     }, 
     {
       "id": 1079, 
@@ -60,7 +66,8 @@
       "name": "1.6 THP Sport MT", 
       "nice_name": "1.6 THP Sport MT", 
       "slug": "1-6-thp-sport-mt", 
-      "formatted-price":"$365.700"
+      "formatted-price":"$365.700",
+      "price":365700
     }
   ]
 }

@@ -6,8 +6,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/theme.css">
+  <link rel="stylesheet" href="https://silviomoreto.github.io/bootstrap-select/dist/css/bootstrap-select.min.css">
+  <script src="/assets/js/main.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://silviomoreto.github.io/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */ 
     .navbar {
@@ -15,6 +19,11 @@
       border-radius: 0;
     }
     
+  .bootstrap-select.btn-group .dropdown-menu li{
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dddddd;
+  }
+
     /* Add a gray background color and some padding to the footer */
     footer {
       background-color: #f2f2f2;
@@ -37,7 +46,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -45,7 +54,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="/">Logo</a>
+      <a class="navbar-brand" href="/"><img src="https://frontcdn.azureedge.net/images/peugeot-darc.png" ></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
@@ -60,9 +69,7 @@
     </div>
   </div>
 </nav>
-
-
-<div class="container text-center">    
+<div class="container">    
 
 
     
@@ -74,51 +81,68 @@
 
   <div class="row">
    
-<h3>Seleccioná tu versión</h3>
+
   <div class="col-sm-4">
-    <div class="form-group ">
-            <select class="form-control">
-           
-                    <option value="1073"> 
-                        1.6 16v. Active MT -- PRECIO:  $365.700
+      <h3>Seleccioná tu versión</h3>
+   
+<div class="form-group " id="versionForm">
+
+        <input type="hidden" value="34" data-name=Peugeot id="brandData">
+            <select class="selectpicker"  data-width="100%" id="versionsSelector">
+                <option>Versiones</option>
+                    <option value="1073" data-name="1.6 16v. Active MT" data-model="573" data-formattedprice="$365.700" data-price="365700"> 
+                        1.6 16v. Active MT | $365.700</b>
                     </option> 
 
                 
-                    <option value="1074"> 
-                        1.6 16v. Allure MT -- PRECIO:  $365.700
+                    <option value="1074" data-name="1.6 16v. Allure MT" data-model="573" data-formattedprice="$367.700" data-price="365700"> 
+                        1.6 16v. Allure MT | $367.700</b>
                     </option> 
 
                 
-                    <option value="1075"> 
-                        1.6 16v. Allure Tiptronic -- PRECIO:  $365.700
+                    <option value="1075" data-name="1.6 16v. Allure Tiptronic" data-model="573" data-formattedprice="$369.700" data-price="365700"> 
+                        1.6 16v. Allure Tiptronic | $369.700</b>
                     </option> 
 
                 
-                    <option value="1076"> 
-                        1.6 16v. Feline MT -- PRECIO:  $365.700
+                    <option value="1076" data-name="1.6 16v. Feline MT" data-model="573" data-formattedprice="$365.700" data-price="365700"> 
+                        1.6 16v. Feline MT | $365.700</b>
                     </option> 
 
                 
-                    <option value="1078"> 
-                        1.6 16v. Feline Tiptronic -- PRECIO:  $365.700
+                    <option value="1078" data-name="1.6 16v. Feline Tiptronic" data-model="573" data-formattedprice="$165.700" data-price="365700"> 
+                        1.6 16v. Feline Tiptronic | $165.700</b>
                     </option> 
 
                 
-                    <option value="1077"> 
-                        1.6 16v. Feline Tiptronic s/techo -- PRECIO:  $365.700
+                    <option value="1077" data-name="1.6 16v. Feline Tiptronic s/techo" data-model="573" data-formattedprice="$365.700" data-price="365700"> 
+                        1.6 16v. Feline Tiptronic s/techo | $365.700</b>
                     </option> 
 
                 
-                    <option value="1079"> 
-                        1.6 THP Sport MT -- PRECIO:  $365.700
+                    <option value="1079" data-name="1.6 THP Sport MT" data-model="573" data-formattedprice="$365.700" data-price="365700"> 
+                        1.6 THP Sport MT | $365.700</b>
                     </option> 
 
                 
 
             </select>
-            <br>
-            <button type="button" class="btn btn-primary btn-lg btn-block">Siguiente</button>
+            
+        <br><br>
+        <input type="number" class="form-control" id="cashAdvance" placeholder="Adelanto en Efectivo">
+            <br id="usedCarAnchor">
+        <input type="number" class="form-control" id="usedCar" placeholder="Auto Usado">
+       
+        <h3 class="text-center" id="amountToFInance" ></h3>
+        <input type="number" class="form-control" id="fee" placeholder="Cuota Deseada">
+        <br>
+        <div class="alert alert-danger" hidden >
+           Por favor seleccione una versión.
+        </div>
+
+            
     </div>
+    <button type="button" id="submitForm" class="btn btn-primary btn-block">Siguiente</button>
   </div>
 
 
@@ -135,3 +159,103 @@
 </body>
 </html>
 
+<script>
+  localStorage.clear();
+
+
+    var selectedVersion;
+    var amountToFInance;
+    var usedCar = 0;
+    var cashAdvance = 0;
+    var modelVersion;
+    var fee = 10000;
+    var vehicleBlock;
+    var brandId = $('#brandData').val();
+    var brandName = $('#brandData').data("name");
+    var versionName;
+
+$('#versionsSelector').change(function(){
+     $('.alert').fadeOut();
+    var selected = $(this).find(":selected");
+
+    amountToFInance = selected.data("price"); 
+
+    selectedVersion = selected.val();
+    modelVersion    = selected.data("model");
+    versionName     = selected.data("name");
+    
+   
+   
+    goToByScroll('#cashAdvance');
+
+});
+
+$('#cashAdvance').change(function(){
+
+    usedCar = usedCar;
+   
+   var amountToShow = amountToFInance - (parseInt($(this).val()) + usedCar);
+
+    console.log(amountToFInance +':'+$(this).val()+':'+usedCar);
+
+   cashAdvance = parseInt($(this).val());
+
+    $('#amountToFInance').html('<small>Monto a Financiar:</small> '+formatPrice(amountToShow));
+
+     goToByScroll('#usedCarAnchor');
+
+})
+
+$('#usedCar').change(function(){
+   
+    cashAdvance = cashAdvance;
+
+    var amountToShow = amountToFInance - (parseInt($(this).val()) + cashAdvance);
+
+    usedCar = parseInt($(this).val());
+    
+    $('#amountToFInance').html('<small>Monto a Financiar:</small> '+formatPrice(amountToShow));
+});
+
+
+$('#submitForm').click(function(){
+  $('.alert').fadeOut();
+   if(selectedVersion &&  selectedVersion != 'Versiones' ){
+    
+       fee = $('#fee').val() || fee;
+       localStorage.setItem('cashAdvance', cashAdvance);
+       localStorage.setItem('usedCar', usedCar );
+       localStorage.setItem('fee', fee);
+       localStorage.setItem('selectedVersion', selectedVersion);
+    
+        vehicleBlock = {"vehicle": {
+                                    "make": {
+                                    "id": parseInt(brandId),
+                                    "name": brandName
+                                    },
+                                    "model": {
+                                    "id": parseInt(modelVersion),
+                                    "name": "tu vieja"
+                                    },
+                                   "id": selectedVersion,
+                                    "name": versionName ,
+                                    "year": 2018,
+                                    "price": Number /* Required */,
+                                    }
+                                }
+                        };
+
+
+      );
+   }else{
+       $('.alert').fadeIn();
+   }
+   
+
+  
+
+})
+
+
+
+</script>
